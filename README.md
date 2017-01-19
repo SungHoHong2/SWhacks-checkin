@@ -1,2 +1,11 @@
 # swhacks-checkin
-# swhacks-checkin
+
+### django oriented framework
+### author : sunghohong
+
+| name  |  context   |
+| -- | -- |
+| modals | modal of django object |
+| templates | front-end source files |
+| views | controllers |
+
