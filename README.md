@@ -4,8 +4,8 @@
 - author : sunghohong
 
 
-| name  |  context   |
-| ------------- |:-------------:|
+| directory  |  context   |
+| ------------- |-------------|
 | modals | modal of django object |
 | templates | front-end source files |
 | views | controllers |
