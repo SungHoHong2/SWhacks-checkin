@@ -1,5 +1,6 @@
 from google.appengine.ext import db
 
+
 class Attendant(db.Model):
     firstName = db.StringProperty('FirstName')
     lastName = db.StringProperty('LastName')
