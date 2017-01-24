@@ -9,6 +9,13 @@ import json
 class CheckinListHandler(webapp2.RequestHandler):
     def get(self):
 
+        '''
+            1. make the pagination work based on the right google app engine protocal
+            2. use the url paging data to track the page even if the page is refreshed
+               ex) if you refresh your webpage on page 2, the refreshed data should remain in page 2
+        '''
+
+
         attendant_list = [{
             'id': attendant.put().id(),
             'first_name': attendant.firstName,
