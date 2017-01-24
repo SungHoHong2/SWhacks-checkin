@@ -7,12 +7,14 @@
 # ===================================
 
 import webapp2
-from views.MainHandler import MainHandler
+from views.CheckinListHandler import CheckinListHandler
+from views.CheckInUpdateHandler import CheckInUpdateHandler
 from views.TestDataHandler import TestDataHandler
 from views.LoginHandler import LoginHandler
 
 app = webapp2.WSGIApplication([
     ('/', LoginHandler),
-    ('/checkin', MainHandler),
+    ('/list', CheckinListHandler),
+    ('/update', CheckInUpdateHandler),
     ('/test', TestDataHandler),
 ], debug=True)

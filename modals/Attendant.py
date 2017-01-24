@@ -1,12 +1,12 @@
-from google.appengine.ext import ndb
+from google.appengine.ext import db
 
-class Attendant(ndb.Model):
-    firstName = ndb.StringProperty('FirstName')
-    lastName = ndb.StringProperty('LastName')
-    email = ndb.StringProperty('Email')
-    dietaryPreferences = ndb.StringProperty('DietaryPreferences')
-    specialAccomodations = ndb.StringProperty('SpecialAccomodations')
-    present = ndb.BooleanProperty('Present', default=False)
+class Attendant(db.Model):
+    firstName = db.StringProperty('FirstName')
+    lastName = db.StringProperty('LastName')
+    email = db.StringProperty('Email')
+    dietaryPreferences = db.StringProperty('DietaryPreferences')
+    specialAccomodations = db.StringProperty('SpecialAccomodations')
+    present = db.BooleanProperty('Present', default=False)
 
 def generateTestData():
     a = Attendant(firstName='Steve', lastName='King', email='sking11@asu.edu',
