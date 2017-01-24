@@ -16,7 +16,7 @@
 ## Distribution of Workload
 
 | Developer | Description |
-|--|--|
+| ------------- |-------------|
 | Ryan | Data Integration and LoginHandler |
 | SungHo | CheckinListHandler |
 | Dj |  CheckinUpdateHandler |
