@@ -1,0 +1,96 @@
+html { font-family: helvetica }
+
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: auto;
+    width: 50%;}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+ul.pagination li a.active {
+    background-color: #eee;
+    color: black;
+    border: 1px solid #ddd;
+}
+
+#search_options{
+    float: right;
+    margin-top: 8px;
+    margin-right: 6px;
+}
+
+.navMenu {
+    height: 36px;
+    line-height: 36px;
+    width: 900px;
+    /* CSS 3 */
+    background-image: linear-gradient(bottom, rgb(170,170,170) 11%, rgb(238,238,238) 77%);
+    background-image: -o-linear-gradient(bottom, rgb(170,170,170) 11%, rgb(238,238,238) 77%);
+    background-image: -moz-linear-gradient(bottom, rgb(170,170,170) 11%, rgb(238,238,238) 77%);
+    background-image: -webkit-linear-gradient(bottom, rgb(170,170,170) 11%, rgb(238,238,238) 77%);
+    background-image: -ms-linear-gradient(bottom, rgb(170,170,170) 11%, rgb(238,238,238) 77%);
+    background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.11, rgb(170,170,170)), color-stop(0.77, rgb(238,238,238)) );
+    border-radius: 5px;
+    margin: auto;
+    width: 100%;
+}
+
+.navMenu a {
+    color: #333;
+    border-right: 1px solid rgba(255,255,255,.5);
+    display: inline-block;
+    float: left;
+    font-size: 12px;
+    padding: 0 15px;
+    text-align: center;
+    text-shadow: 0 1px 1px #FFF;
+    text-transform: uppercase;
+    text-decoration: none;
+    width: 115px;
+    /* CSS3 */
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.navMenu a:hover { background-color: rgba(0, 0, 0,.05) }
+
+.navMenu input {
+    background: url(http://cssdeck.com/uploads/media/items/4/4yK4Jqj.jpg) 5px center no-repeat #FFF;
+    border: 1px solid #AAA;
+    color: #666;
+    float: right;
+    font-size: 11px;
+    margin: 7px 32px 0 0;
+    opacity: 0.6;
+    outline: none;
+    padding: 3px 5px 3px 20px;
+    width: 80px;
+    /* CSS3 */
+    border-radius: 5px;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.navMenu input:hover { opacity: 1 }
+
+.navMenu input:focus {
+    opacity: 1;
+    width: 180px;
+}
+
+.navMenu input:focus ~ a { width: 95px }
