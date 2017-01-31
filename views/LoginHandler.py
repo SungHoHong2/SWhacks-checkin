@@ -4,20 +4,21 @@ from google.appengine.ext import db
 import webapp2, os
 from google.appengine.api import users
 from modals.User import getHash, User
+from views.SessionHandler import SessionHandler
 
 
-class LoginHandler(webapp2.RequestHandler):
+class LoginHandler(SessionHandler):
     # On get request, first check the user if logged in already. if not, render the login.html
     def get(self):
-        user = users.get_current_user()
+        user = self.session.get('Auth')
         if user:
             self.redirect("/list")
-        else:
-            template_values = {
-                'css_url': "templates/css/style.css"
-            }
-            path = os.path.join(os.path.dirname(__file__), '../templates/login.html')
-            self.response.out.write(template.render(path, template_values))
+
+        template_values = {
+            'css_url': "templates/css/style.css"
+        }
+        path = os.path.join(os.path.dirname(__file__), '../templates/login.html')
+        self.response.out.write(template.render(path, template_values))
 
     # On POST request, query the database for correct password
     def post(self):
@@ -38,6 +39,8 @@ class LoginHandler(webapp2.RequestHandler):
             self.response.out.write(template.render(path, template_values))
         else:
             if result.password == hashed:  # If same password, go to list page
+                self.session['Auth'] = 'Yes'
+                self.session['Type'] = result.type
                 self.redirect("/list")
             else:
                 template_values = {

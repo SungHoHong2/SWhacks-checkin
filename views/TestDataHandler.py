@@ -1,8 +1,9 @@
 import webapp2
 from modals.Attendant import Attendant
 from modals.User import User
+from views.SessionHandler import SessionHandler
 
-class TestDataHandler(webapp2.RequestHandler):
+class TestDataHandler(SessionHandler):
     def get(self):
         a = Attendant(firstName='temp', lastName='', email='',
                     dietaryPreferences='', specialAccomodations='')
