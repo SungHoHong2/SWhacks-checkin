@@ -3,7 +3,7 @@ import webapp2, os
 from google.appengine.api import users
 from modals.Attendant import Attendant
 import json
-
+from google.appengine.ext.db import Key
 
 class CheckInUpdateHandler(webapp2.RequestHandler):
     def post(self):
@@ -17,7 +17,9 @@ class CheckInUpdateHandler(webapp2.RequestHandler):
         '''
 
         is_present = self.request.get('is_present')
-        _id = self.request.get('id')
+        _id = self.request.get('keys')
+
+        print _id
 
         if is_present:
             print 'change present to false'
@@ -25,7 +27,7 @@ class CheckInUpdateHandler(webapp2.RequestHandler):
             print 'change present to true'
 
 
-        response_data = {"success": True, 'id': _id}
+        response_data = {"success": True, 'keys': _id[0:len(_id)-1]}
         json_rtn = json.dumps(response_data)
         self.response.headers['Content-Type'] = 'application/json; charset=UTF-8'
         self.response.out.write(json_rtn)
