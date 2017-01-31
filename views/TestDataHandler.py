@@ -1,19 +1,14 @@
 import webapp2
 from modals.Attendant import Attendant
+from modals.User import User
+from views.SessionHandler import SessionHandler
 
-class TestDataHandler(webapp2.RequestHandler):
+class TestDataHandler(SessionHandler):
     def get(self):
-        a = Attendant(firstName='Steve', lastName='King', email='sking11@asu.edu',
-                      dietaryPreferences='None', specialAccomodations='')
-        a.put()
-        a = Attendant(firstName='Ryan', lastName='Ang', email='rang1@asu.edu',
-                      dietaryPreferences='Vegan', specialAccomodations='Pls no')
-        a.put()
-        a = Attendant(firstName='SungHo', lastName='Hong', email='sungho@asu.edu',
-                      dietaryPreferences='None', specialAccomodations='')
-        a.put()
-        a = Attendant(firstName='Darrell', lastName='Jackson', email='bigdaddy@asu.edu',
-                      dietaryPreferences='Pizza', specialAccomodations='Call me big daddy')
-        a.put()
+        a = Attendant(firstName='temp', lastName='', email='',
+                    dietaryPreferences='', specialAccomodations='')
+        a.generateTestData()
+        u = User(email="t", password="d", type="Administrator")
+        u.generateTestData()
         self.response.headers['Content_Type'] = 'text/plain'
         self.response.out.write('test successful')

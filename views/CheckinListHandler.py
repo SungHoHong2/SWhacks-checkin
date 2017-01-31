@@ -3,6 +3,7 @@ import webapp2, os
 from google.appengine.api import users
 from modals.Attendant import Attendant
 import json
+from views.SessionHandler import SessionHandler
 
 
 col_names = {
@@ -11,8 +12,11 @@ col_names = {
     'email': 'email_lower'
 }
 
-class CheckinListHandler(webapp2.RequestHandler):
+class CheckinListHandler(SessionHandler):
     def get(self):
+        user = self.session.get('Auth')
+        if not user:
+            self.redirect("/")
 
         '''
             1. make the pagination work based on the right google app engine protocal
@@ -26,12 +30,18 @@ class CheckinListHandler(webapp2.RequestHandler):
                 - simple check update
         '''
 
+        # Get user's type in session
+        type = self.session.get('Type')
+        if type == 'Administrator':
+            # show add user dialog in the html
+            print type
+
         prev_cursor = self.request.get('prev_cursor', '')
         next_cursor = self.request.get('next_cursor', '')
         attendant_list = Attendant.cursor_pagination(prev_cursor, next_cursor, 3)
 
         template_values = {
-            'logout_url': users.create_logout_url('/'),
+            'logout_url': '/logout',
             'attendant_list': json.dumps(attendant_list['objects']),
             'next_cursor': attendant_list['next_cursor'],
             'prev_cursor' : attendant_list['prev_cursor'],
