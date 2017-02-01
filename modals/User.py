@@ -8,6 +8,13 @@ class User(db.Model):
     type = db.StringProperty('Type')
 
     def generateTestData(self):
+        q = db.GqlQuery("SELECT * FROM User")
+        results = q.fetch(1000)
+
+        while results:
+            db.delete(results)
+            results = q.fetch(1000, len(results))
+
         salt="swh4cks"
         tempPs = "123"
         passWord = getHash(tempPs)

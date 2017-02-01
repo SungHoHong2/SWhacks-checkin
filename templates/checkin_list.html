@@ -17,124 +17,131 @@
 
 <script type="text/javascript">
 
-var checkin_grid;
-$(document).ready(function() {
-    var attendant_list = {
-        page : 1, total: 2, records: 10,
-        rows : {{ attendant_list|safe }}
-    };
+    var checkin_grid;
+    $(document).ready(function () {
+        var attendant_list = {
+            page: 1, total: 2, records: 10,
+            rows: {{ attendant_list|safe }}
+        };
 
-    $("#checkin_list").jqGrid({
-            datatype: 'jsonstring',
-            datastr: attendant_list,
-            colNames:['id','first_name', 'last_name', 'email','dietary preferences','special accomodations','present'],
-            colModel:[
-                {name:'id', hidden: true},
-                {name:'first_name', index: 'first_name'},
-                {name:'last_name'},
-                {name:'email'},
-                {name:'dietary_preferences', width: 200},
-                {name:'special_accomodations', width : 200},
-                {name:'present', align: 'center'}
+        $("#checkin_list").jqGrid({
+            datatype: 'jsonstring',
+            datastr: attendant_list,
+            colNames: ['id', 'First Name', 'Last Name', 'Gender', 'T Shirt', 'Email', 'Dietary preferences', 'Special accommodations', 'present'],
+            colModel: [
+                {name: 'id', hidden: true},
+                {name: 'first_name', index: 'first_name'},
+                {name: 'last_name'},
+                {name: 'gender', width: 70},
+                {name: 'tShirt', width: 70},
+                {name: 'email', width: 200},
+                {name: 'dietary_preferences'},
+                {name: 'special_accomodations', width: 200},
+                {name: 'present', align: 'center'}
             ],
-            rowNum:10,
-            rowList:[10,20,30],
+            rowNum: 10,
+            rowList: [10, 20, 30],
             height: 'auto',
             width: 'auto',
             sortname: 'id',
             sortorder: "desc",
-            multiselect : true,
-    });
+            multiselect: true,
+        });
 
-    checkin_grid = $("#checkin_list").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
-
-
-    // search mode
-    $('#search_submit').click(function(){
+        checkin_grid = $("#checkin_list").jqGrid('navGrid', '#pager2', {edit: false, add: false, del: false});
 
 
-    })
+        // search mode
+        $('#search_submit').click(function () {
 
-    // back to list mode
-    $('#search_text').keyup(function(e){
 
-        var code = e.which;
-        if(code==13)e.preventDefault();
-        if(code==32||code==13||code==188||code==186){
-            if($('#search_text').val() == ''){
-                location.href='/list';
-            }else{
-                var request_json = {
-                     col_name: $('#search_options').val(),
+        })
+
+        // back to list mode
+        $('#search_text').keyup(function (e) {
+
+            var code = e.which;
+            if (code == 13) e.preventDefault();
+            if (code == 32 || code == 13 || code == 188 || code == 186) {
+                if ($('#search_text').val() == '') {
+                    location.href = '/list';
+                } else {
+                    var request_json = {
+                        col_name: $('#search_options').val(),
                         text: $('#search_text').val()
-                };
+                    };
 
-             $('#prev').remove();
-             $('#next').remove();
+                    $('#prev').remove();
+                    $('#next').remove();
 
-                   $.ajax({
-                        url : '../list',
-                        type: "POST",
-                        data : request_json,
-                        success: function(data, textStatus, jqXHR){
+                    $.ajax({
+                        url: '../list',
+                        type: "POST",
+                        data: request_json,
+                        success: function (data, textStatus, jqXHR) {
                             console.log(JSON.parse(data.attendant_list));
                             console.log(checkin_grid.getRowData());
 
                             var search_list = JSON.parse(data.attendant_list);
 
-                            $(checkin_grid.getRowData()).each(function(index, item){
+                            $(checkin_grid.getRowData()).each(function (index, item) {
                                 checkin_grid.delRowData(item.id);
                             });
 
-                            for(var i=0;i<search_list.length;i++) {
+                            for (var i = 0; i < search_list.length; i++) {
                                 checkin_grid.jqGrid('addRowData', search_list[i].id, search_list[i]);
                             }
 
-                        },
-                        error: function (jqXHR, textStatus, errorThrown){
-                     
-                        }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+
+                        }
                     });
 
                 }
             }
+        });
+
+        $('#present_submit').click(function () {
+            var keys_array = checkin_grid.jqGrid('getGridParam', 'selarrrow');
+            if (keys_array.length == 0) {
+                alert('Please select at least one row');
+                return;
+            }
+            ;
+
+            if (!confirm('Are you sure?')) {
+                return false;
+            }
+
+            var keys = '';
+            // Take the key from row(s) and place into var keys.
+            $(keys_array).each(function (index, item) {
+                keys += item + ',';
+            });
+
+            $.ajax({
+                url: '../update',
+                type: "POST",
+                data: {keys: keys}, //Pass variables to the POST body request
+                success: function (data, textStatus, jqXHR) {
+                    $(data.keys).each(function (index, item) {
+                        if (checkin_grid.getRowData(item)['present'] == 'false') {
+                            checkin_grid.jqGrid('setCell', item, 'present', true);
+                        } else {
+                            checkin_grid.jqGrid('setCell', item, 'present', false);
+                        }
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert('Error!');
+                }
+            });
+
+        });
+
+
     });
-
-    $('#present_submit').click(function(){
-          var keys_array = checkin_grid.jqGrid('getGridParam','selarrrow');
-                        if(keys_array.length==0){ alert('Please select at least one row'); return; };
-
-                        if(!confirm('Are you sure?')){ return false; }
-
-                        var keys='';
-                        // Take the key from row(s) and place into var keys.
-                        $(keys_array).each(function(index, item){
-                            keys+=item+',';
-                        });
-
-                        $.ajax({
-                            url : '../update',
-                            type: "POST",
-                            data : {keys: keys}, //Pass variables to the POST body request
-                            success: function(data, textStatus, jqXHR){
-                                $(data.keys).each(function(index, item){
-                                    if(checkin_grid.getRowData(item)['present']=='false') {
-                                        checkin_grid.jqGrid('setCell', item, 'present', true);
-                                    }else{
-                                        checkin_grid.jqGrid('setCell', item, 'present', false);
-                                    }
-                                });
-                            },
-                            error: function (jqXHR, textStatus, errorThrown){
-                                alert('Error!');
-                            }
-                        });
-
-    });
-
-
-
-});
 
 
 </script>
@@ -143,36 +150,35 @@ $(document).ready(function() {
 <body>
 
 <div id="navMenu_top">
-	<div class="navMenu expander">
-		<div action="">
-			<input type="text" id ='search_text'/>
-            <select id="search_options">
-                  <option value="firstName">first_name</option>
-                  <option value="lastName">last_name</option>
-                  <option value="email">email</option>
-            </select>
+  <div class="navMenu expander">
+    <div action="">
+      <input type="text" id='search_text'/>
+      <select id="search_options">
+        <option value="firstName">First Name</option>
+        <option value="lastName">Last Name</option>
+        <option value="email">Email</option>
+      </select>
 
-            <a href="{{ logout_url }}">Logout</a>
+      <a href="{{ logout_url }}">Logout</a>
 
-		</div>
-	</div>
+    </div>
+  </div>
 
 </div>
-
 
 
 <table id="checkin_list"></table>
 
 <div id="navMenu_css">
-<ul class="pagination">
-  <li><a id="present_submit" class="active">Confirm Presence</a></li>
+  <ul class="pagination">
+    <li><a id="present_submit" class="active">Confirm Presence</a></li>
     {% if prev %}
-        <li><a id="prev" href="/list?prev_cursor={{ prev_cursor }}">❮</a></li>
+      <li><a id="prev" href="/list?prev_cursor={{ prev_cursor }}">❮</a></li>
     {% endif %}
     {% if next %}
-        <li><a id="next" href="/list?next_cursor={{ next_cursor }}">❯</a></li>
+      <li><a id="next" href="/list?next_cursor={{ next_cursor }}">❯</a></li>
     {% endif %}
-</ul>
+  </ul>
 </div>
 
 
