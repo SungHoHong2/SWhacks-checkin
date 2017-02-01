@@ -16,7 +16,7 @@ class Attendant(ndb.Model):
 
     dietaryPreferences = ndb.StringProperty('DietaryPreferences')
     specialAccomodations = ndb.StringProperty('SpecialAccomodations')
-    present = ndb.BooleanProperty('Present', default=True)
+    present = ndb.BooleanProperty('Present', default=False)
     created = ndb.DateTimeProperty(auto_now_add=True)
 
     def generateTestData(self):
