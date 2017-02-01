@@ -107,6 +107,7 @@ $(document).ready(function() {
                         if(!confirm('Are you sure?')){ return false; }
 
                         var keys='';
+                        // Take the key from row(s) and place into var keys.
                         $(keys_array).each(function(index, item){
                             keys+=item+',';
                         });
@@ -114,9 +115,9 @@ $(document).ready(function() {
                         $.ajax({
                             url : '../update',
                             type: "POST",
-                            data : {keys: keys},
+                            data : {keys: keys}, //Pass variables to the POST body request
                             success: function(data, textStatus, jqXHR){
-                                $(data.keys.split(',')).each(function(index, item){
+                                $(data.id.split(',')).each(function(index, item){
                                     if(checkin_grid.getRowData(item)['present']=='false') {
                                         checkin_grid.jqGrid('setCell', item, 'present', true);
                                     }else{
