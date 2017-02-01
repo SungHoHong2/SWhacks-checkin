@@ -12,6 +12,7 @@ from views.CheckInUpdateHandler import CheckInUpdateHandler
 from views.TestDataHandler import TestDataHandler
 from views.LoginHandler import LoginHandler
 from views.LogoutHandler import LogoutHandler
+from views.ChangePasswordHandler import ChangePasswordHandler
 config = {}
 config['webapp2_extras.sessions'] = {
     'secret_key': 'sTm9uZXIWCxIJQXR0ZW5kYW50GICAgICA4JcJDA',
@@ -19,6 +20,7 @@ config['webapp2_extras.sessions'] = {
 app = webapp2.WSGIApplication([
     ('/', LoginHandler),
     ('/logout', LogoutHandler),
+    ('/chps', ChangePasswordHandler),
     ('/list', CheckinListHandler),
     ('/update', CheckInUpdateHandler),
     ('/test', TestDataHandler),

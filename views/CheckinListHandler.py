@@ -42,6 +42,7 @@ class CheckinListHandler(SessionHandler):
 
         template_values = {
             'logout_url': '/logout',
+            'changePass_url': '/chps',
             'attendant_list': json.dumps(attendant_list['objects']),
             'next_cursor': attendant_list['next_cursor'],
             'prev_cursor' : attendant_list['prev_cursor'],
