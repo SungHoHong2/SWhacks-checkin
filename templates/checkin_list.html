@@ -39,6 +39,8 @@ $(document).ready(function() {
             ],
             rowNum:10,
             rowList:[10,20,30],
+            height: 'auto',
+            width: 'auto',
             sortname: 'id',
             sortorder: "desc",
             multiselect : true,
@@ -96,8 +98,6 @@ $(document).ready(function() {
 
                 }
             }
-
-
     });
 
     $('#present_submit').click(function(){
@@ -117,7 +117,7 @@ $(document).ready(function() {
                             type: "POST",
                             data : {keys: keys}, //Pass variables to the POST body request
                             success: function(data, textStatus, jqXHR){
-                                $(data.id.split(',')).each(function(index, item){
+                                $(data.keys).each(function(index, item){
                                     if(checkin_grid.getRowData(item)['present']=='false') {
                                         checkin_grid.jqGrid('setCell', item, 'present', true);
                                     }else{
@@ -142,7 +142,7 @@ $(document).ready(function() {
 
 <body>
 
-<div>
+<div id="navMenu_top">
 	<div class="navMenu expander">
 		<div action="">
 			<input type="text" id ='search_text'/>
@@ -163,7 +163,7 @@ $(document).ready(function() {
 
 <table id="checkin_list"></table>
 
-<div>
+<div id="navMenu_css">
 <ul class="pagination">
   <li><a id="present_submit" class="active">Confirm Presence</a></li>
     {% if prev %}

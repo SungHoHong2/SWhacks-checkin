@@ -24,33 +24,28 @@ class CheckInUpdateHandler(webapp2.RequestHandler):
         # 5. make a copy of the key, and place into an array called "_id"
 
 
-
-
         # This works for one user.
-        key_str = self.request.get("keys").split(',')[0]
+        # key_str = self.request.get("keys").split(',')[0]
+        print 'howdy'
+        key_list = self.request.get("keys").split(',')
+        key_list = key_list[:len(key_list)-1:]
+        for key_str in key_list:
+            print 'gohowdy'
+            print key_str
+            key = ndb.Key(urlsafe=key_str)
+            attendant = key.get()
 
-        key = ndb.Key(urlsafe=key_str)
-        attendant = key.get()
+            is_present = attendant.present
+            # If the attendant is present, mark him/her not present
+            # We do this inversion because a staff member might have checked the wrong person
+            if is_present:
+                attendant.present = False
+            else:
+                attendant.present = True
+            attendant.put()
 
-        is_present = attendant.present
-        # If the attendant is present, mark him/her not present
-        # We do this inversion because a staff member might have checked the wrong person
-        if is_present:
-            attendant.present = False
-        else:
-            attendant.present = True
 
-        attendant.put()
-
-        _id = self.request.get("keys").split(',')[0]
-        # this works for one user
-
-        if is_present:
-            print 'change present to false'
-        else:
-            print 'change present to true'
-
-        response_data = {"success": True, 'id': _id}
+        response_data = {"success": True, 'keys': key_list}
         json_rtn = json.dumps(response_data)
         self.response.headers['Content-Type'] = 'application/json; charset=UTF-8'
         self.response.out.write(json_rtn)
