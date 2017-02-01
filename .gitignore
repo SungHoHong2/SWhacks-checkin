@@ -43,6 +43,8 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+# Python complied files
+*.pyc
 
 # OS Files
 .DS_Store
