@@ -33,6 +33,9 @@ class Attendant(ndb.Model):
                       dietaryPreferences='Pizza', specialAccomodations='Call me big daddy')
         a.put()
 
+
+
+
     @classmethod
     def cursor_pagination(cls, prev_cursor_str, next_cursor_str, total_page, search_dict=False):
 

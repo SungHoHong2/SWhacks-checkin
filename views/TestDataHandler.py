@@ -8,6 +8,14 @@ class TestDataHandler(SessionHandler):
         a = Attendant(firstName='temp', lastName='', email='',
                     dietaryPreferences='', specialAccomodations='')
         a.generateTestData()
+        a.generateTestData()
+        a.generateTestData()
+        a.generateTestData()
+        a.generateTestData()
+        a.generateTestData()
+        a.generateTestData()
+        a.generateTestData()
+
         u = User(email="t", password="d", type="Administrator")
         u.generateTestData()
         self.response.headers['Content_Type'] = 'text/plain'

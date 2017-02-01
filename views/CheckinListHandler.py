@@ -38,7 +38,7 @@ class CheckinListHandler(SessionHandler):
 
         prev_cursor = self.request.get('prev_cursor', '')
         next_cursor = self.request.get('next_cursor', '')
-        attendant_list = Attendant.cursor_pagination(prev_cursor, next_cursor, 3)
+        attendant_list = Attendant.cursor_pagination(prev_cursor, next_cursor, 10)
 
         template_values = {
             'logout_url': '/logout',

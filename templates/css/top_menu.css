@@ -1,5 +1,15 @@
 html { font-family: helvetica }
 
+#navMenu_top{
+        margin-bottom: 16px;
+}
+#navMenu_css{
+        width: 460px;
+        margin:auto;
+        padding-top: 18px;
+        padding-left: 192px;
+}
+
 ul.pagination {
     display: inline-block;
     padding: 0;
