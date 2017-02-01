@@ -13,31 +13,30 @@
 ## User UI description
 
 > ### Adding test data
-must add the test data by using the link localhost:8080/test
 ![alt tag](README/0.png)
+must add the test data by using the link localhost:8080/test
 
 
 > ### Login
-description discription
 ![alt tag](README/1.png)
+the login information can be found in models/User.py
 
 
-
-> ### Login
+> ### Paging
 ![alt tag](README/2.png)
+paging is possible by clicking the arrow button at the bottom
 
 
-> ### Login
-![alt tag](README/3.png)
-
-
-> ### Login
+> ### Search
 ![alt tag](README/4.png)
+Search the data by using the top right search text
 
 
-> ### Login
+> ### Update presence
 ![alt tag](README/5.png)
-
+Update the attendees by clicking them and press the confirm Presence button
+The 'Present' Column will change based on it's content.
+ex) True -> False,  False -> True
 
 
 <br>
