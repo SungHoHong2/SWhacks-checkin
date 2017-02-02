@@ -6,6 +6,8 @@ class Attendant(ndb.Model):
     firstName = ndb.StringProperty('FirstName')
     lastName = ndb.StringProperty('LastName')
     email = ndb.StringProperty('Email')
+    gender = ndb.StringProperty('Gender')
+    tShirtSize = ndb.StringProperty('tShirtSize')
 
     '''
         Using lowercase is also impossible in Google App Engine
@@ -13,32 +15,56 @@ class Attendant(ndb.Model):
     firstName_lower = ndb.ComputedProperty(lambda self: self.firstName.lower())
     lastName_lower = ndb.ComputedProperty(lambda self: self.lastName.lower())
     email_lower = ndb.ComputedProperty(lambda self: self.email.lower())
+    # gender_lower = ndb.ComputedProperty(lambda self: self.gender.lower())
+    # tShirtSize_lower = ndb.ComputedProperty(lambda self: self.tShirtSize.lower())
 
-    dietaryPreferences = ndb.StringProperty('DietaryPreferences')
-    specialAccomodations = ndb.StringProperty('SpecialAccomodations')
+    dietaryPreferences = ndb.StringProperty('DietaryPreferences', default='None')
+    specialAccomodations = ndb.StringProperty('SpecialAccomodations', default='None')
     present = ndb.BooleanProperty('Present', default=False)
     created = ndb.DateTimeProperty(auto_now_add=True)
 
     def generateTestData(self):
-        a = Attendant(firstName='Steve', lastName='King', email='sking11@asu.edu',
-                      dietaryPreferences='None', specialAccomodations='')
-        a.put()
-        a = Attendant(firstName='Ryan', lastName='Ang', email='rang1@asu.edu',
-                      dietaryPreferences='Vegan', specialAccomodations='Pls no')
-        a.put()
-        a = Attendant(firstName='SungHo', lastName='Hong', email='sungho@asu.edu',
-                      dietaryPreferences='None', specialAccomodations='')
-        a.put()
-        a = Attendant(firstName='Darrell', lastName='Jackson', email='bigdaddy@asu.edu',
-                      dietaryPreferences='Pizza', specialAccomodations='Call me big daddy')
-        a.put()
+        ndb.delete_multi(Attendant.query().fetch(999999, keys_only=True))  # Clear datastore entities
+        ndb.get_context().clear_cache()  # Clear memcache
 
+        shirtArray = ['XS', 'S', 'M', 'L', 'XL']
+        DietaryPreferencesArray = ['None', 'Meat-only', 'Vegan', 'Chipotle', 'gluten-free']
 
+        # Randomly 200 generate attendees
+        import random, os
+        for num in range(0, 200):
+            # Choose between male or female
+            rand = random.randint(0, 500)
+            if rand % 2 == 0:  # If even, use male first name
+                file = "testFiles/Male.txt"
+                gender = "M"
+            else:  # odd, use female
+                file = "testFiles/Female.txt"
+                gender = "F"
 
+            firstNameFile = os.path.join(os.path.dirname(__file__), './'+file)
+            lastNameFile = os.path.join(os.path.dirname(__file__), './testFiles/lastNames.txt')
+
+            lines = open(firstNameFile).read().splitlines()
+            firstName = random.choice(lines)
+            lines = open(lastNameFile).read().splitlines()
+            lastName = random.choice(lines)
+
+            # Simple concatenation to build email
+            email = firstName + lastName + "@asu.edu"
+
+            # Randomly pick t shirt size from array
+            shirtSize = random.choice(shirtArray)
+
+            # Randomly pick DietaryPreferences from array
+            DietPref = random.choice(DietaryPreferencesArray)
+
+            a = Attendant(firstName=firstName, lastName=lastName, gender=gender,
+                          email=email, tShirtSize=shirtSize,dietaryPreferences=DietPref)
+            a.put()
 
     @classmethod
     def cursor_pagination(cls, prev_cursor_str, next_cursor_str, total_page, search_dict=False):
-
 
         '''
             Currently it is impossible for me to create paging while searching
@@ -60,7 +86,6 @@ class Attendant(ndb.Model):
                 query_start = cls.query().order(-cls.created)
             else:
                 query_start = cls.query().order(cls.created)
-
 
         if not prev_cursor_str and not next_cursor_str:
             objects, next_cursor, more = query_start.fetch_page(total_page)
@@ -88,15 +113,16 @@ class Attendant(ndb.Model):
             next_ = True
 
         objects = [{
-            'id': attendant.put().urlsafe(),
-            'first_name': attendant.firstName,
-            'last_name': attendant.lastName,
-            'email': attendant.email,
-            'dietary_preferences': attendant.dietaryPreferences,
-            'special_accomodations': attendant.specialAccomodations,
-            'present': attendant.present
-        } for attendant in objects]
+                       'id': attendant.put().urlsafe(),
+                       'first_name': attendant.firstName,
+                       'last_name': attendant.lastName,
+                       'email': attendant.email,
+                       'gender': attendant.gender,
+                       'tShirt': attendant.tShirtSize,
+                       'dietary_preferences': attendant.dietaryPreferences,
+                       'special_accomodations': attendant.specialAccomodations,
+                       'present': attendant.present
+                   } for attendant in objects]
 
-        return {'objects': objects, 'next_cursor': next_cursor_str, 'prev_cursor': prev_cursor_str, 'prev': prev, 'next': next_}
-
-
+        return {'objects': objects, 'next_cursor': next_cursor_str, 'prev_cursor': prev_cursor_str, 'prev': prev,
+                'next': next_}
