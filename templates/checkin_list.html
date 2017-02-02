@@ -159,8 +159,13 @@
         <option value="email">Email</option>
       </select>
 
-      <a href="{{ logout_url }}">Logout</a>
 
+      <a href="{{ logout_url }}" style="background-color: rgb(240, 128, 128);">Logout</a>
+
+      <a href="{{ changePass_url }}">Change Password</a>
+      {% if type %}
+        <a href="{{ addUser_url }}">Add User</a>
+      {% endif %}
     </div>
   </div>
 
@@ -171,12 +176,12 @@
 
 <div id="navMenu_css">
   <ul class="pagination">
-    <li><a id="present_submit" class="active">Confirm Presence</a></li>
     {% if prev %}
-      <li><a id="prev" href="/list?prev_cursor={{ prev_cursor }}">❮</a></li>
+      <li><a id="prev" href="/list?prev_cursor={{ prev_cursor }}" style="border-radius: 3px">❮</a></li>
     {% endif %}
+    <li><a id="present_submit" class="active" style="background-color: rgb(182, 255, 185); border-radius: 3px">Confirm Presence</a></li>
     {% if next %}
-      <li><a id="next" href="/list?next_cursor={{ next_cursor }}">❯</a></li>
+      <li><a id="next" href="/list?next_cursor={{ next_cursor }}" style="border-radius: 3px">❯</a></li>
     {% endif %}
   </ul>
 </div>

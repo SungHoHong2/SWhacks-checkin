@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--Originally found at http://cssdeck.com/labs/login-form-using-html5-and-css3-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Change password </title>
+
+  <link rel="stylesheet" href="{{ css_url }}">
+
+</head>
+<style>
+  #content h1:before,
+  #content h1:after {
+    height: 0px !important;
+  }
+
+  #content form input[type="password"] {
+    background: #eae7e7 !important;
+
+  }
+</style>
+<body>
+<div class="container">
+  <section id="content">
+    <form method="POST" action="/chps">
+      <h1>Change Password Form</h1>
+      <div>
+        <input type="password" placeholder="Password" required="" name="email" id="email"/>
+      </div>
+      <div>
+        <input type="password" placeholder="Repeat Password" required="" name="password" id="password"/>
+      </div>
+      <div>
+        <input type="button" onclick="location.href='/list';" value="Back"/>
+        <input type="submit" value="Change"/>
+      </div>
+    </form>
+  </section>
+</div>
+</body>
+
+
+</html>

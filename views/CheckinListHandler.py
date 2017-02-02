@@ -30,11 +30,7 @@ class CheckinListHandler(SessionHandler):
                 - simple check update
         '''
 
-        # Get user's type in session
-        type = self.session.get('Type')
-        if type == 'Administrator':
-            # show add user dialog in the html
-            print type
+
 
         prev_cursor = self.request.get('prev_cursor', '')
         next_cursor = self.request.get('next_cursor', '')
@@ -42,12 +38,19 @@ class CheckinListHandler(SessionHandler):
 
         template_values = {
             'logout_url': '/logout',
+            'changePass_url': '/chps',
             'attendant_list': json.dumps(attendant_list['objects']),
             'next_cursor': attendant_list['next_cursor'],
             'prev_cursor' : attendant_list['prev_cursor'],
             'prev': attendant_list['prev'],
             'next': attendant_list['next'],
         }
+
+        # Get user's type in session
+        type = self.session.get('Type')
+        if type == 'Administrator':
+            template_values['addUser_url'] = '/adduser'
+            template_values['type']= 'Admin' # Send Admin to html and render the add user button
 
         path = os.path.join(os.path.dirname(__file__), '../templates/checkin_list.html')
         self.response.out.write(template.render(path, template_values))

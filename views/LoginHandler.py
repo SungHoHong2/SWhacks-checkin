@@ -1,8 +1,5 @@
 from google.appengine.ext.webapp import template
-from google.appengine.ext import db
-
 import webapp2, os
-from google.appengine.api import users
 from modals.User import getHash, User
 from views.SessionHandler import SessionHandler
 
@@ -39,7 +36,12 @@ class LoginHandler(SessionHandler):
             self.response.out.write(template.render(path, template_values))
         else:
             if result.password == hashed:  # If same password, go to list page
-                self.session['Auth'] = 'Yes'
+                query = User.all(keys_only=True)
+                query.filter("email =", email)
+                resultKey = query.get()
+
+                self.session['Auth'] = "Yes"
+                self.session['key'] = str(resultKey)
                 self.session['Type'] = result.type
                 self.redirect("/list")
             else:
