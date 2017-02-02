@@ -18,7 +18,7 @@ class ChangePasswordHandler(SessionHandler):
         template_values = {
             'css_url': "templates/css/style.css"
         }
-        path = os.path.join(os.path.dirname(__file__), '../templates/reset_pass.html')
+        path = os.path.join(os.path.dirname(__file__), '../templates/change_pass.html')
         self.response.out.write(template.render(path, template_values))
 
     # On POST request, query the database for correct password

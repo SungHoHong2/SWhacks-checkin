@@ -176,10 +176,10 @@
 
 <div id="navMenu_css">
   <ul class="pagination">
-    <li><a id="present_submit" class="active" style="background-color: rgb(182, 255, 185); border-radius: 3px">Confirm Presence</a></li>
     {% if prev %}
       <li><a id="prev" href="/list?prev_cursor={{ prev_cursor }}" style="border-radius: 3px">❮</a></li>
     {% endif %}
+    <li><a id="present_submit" class="active" style="background-color: rgb(182, 255, 185); border-radius: 3px">Confirm Presence</a></li>
     {% if next %}
       <li><a id="next" href="/list?next_cursor={{ next_cursor }}" style="border-radius: 3px">❯</a></li>
     {% endif %}
