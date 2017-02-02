@@ -19,13 +19,11 @@
 - the source of the test data can be found in [modals/Attendant.py](modals/Attendant.py)
 - the source of the reference data used in the test data can be found in [modals/testFiles](modals/testFiles)
 
----
 
 > ### Login
 ![alt tag](README/1.png)
 - the login information can be found in [modals/User.py](modals/User.py)
 
----
 
 
 > ### Paging
@@ -33,13 +31,13 @@
 - paging is possible by clicking the arrow button at the bottom
 - the each arrow button will disappear at the first and the last of the row.
 
----
+
 
 > ### Changing the Password
 ![alt tag](README/3.png)
 - clicking on the change password button on the top left will redirect to password change page
 
----
+
 
 > ### Search
 ![alt tag](README/4.png)
@@ -47,7 +45,6 @@
 - While searching the paging is not possible for the current state.
 - Searching with empty words will disable the search mode and reactivate the paging.
 
----
 
 
 > ### Update presence
@@ -56,7 +53,6 @@
 - The 'Present' Column will change based on it's content.
 - ex) True -> False,  False -> True
 
----
 
 > ### Adding users
 ![alt tag](README/6.png)
