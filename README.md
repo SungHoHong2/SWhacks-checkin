@@ -16,13 +16,13 @@
 ![alt tag](README/0.png)
 - must add the test data by using the link localhost:8080/test
 - the existing test data in your localhost will be removed and added with the new data.
-- the source of the test data can be found in [a relative link](modals/Attendant.py)
-- the source of the reference data used in the test data can be found in [a relative link](modals/testFiles)
+- the source of the test data can be found in [modals/Attendant.py](modals/Attendant.py)
+- the source of the reference data used in the test data can be found in [modals/testFiles](modals/testFiles)
 ---
 
 > ### Login
 ![alt tag](README/1.png)
-- the login information can be found in [a relative link](modals/User.py)
+- the login information can be found in [modals/User.py](modals/User.py)
 ---
 
 
@@ -55,7 +55,7 @@
 > ### Adding users
 ![alt tag](README/6.png)
 - If the user's type property is Administer, he or she will be able to add more users by clicking on the Add user button on the top left.
-- the user type can be found in the [a relative link](modals/User.py)
+- the user type can be found in the [modals/User.py](modals/User.py)
 
 <br>
 <br>
