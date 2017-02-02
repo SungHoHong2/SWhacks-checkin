@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--Originally found at http://cssdeck.com/labs/login-form-using-html5-and-css3-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Add User </title>
+
+  <link rel="stylesheet" href="{{ css_url }}">
+
+</head>
+<style>
+  #content h1:before,
+  #content h1:after {
+    height: 0px !important;
+  }
+
+
+</style>
+<body>
+<div class="container">
+  <section id="content">
+    <form method="POST" action="/adduser" id="add">
+      <h1>Add User Form</h1>
+      <div>
+        <input type="text" placeholder="Email" required="" name="email" id="email" value="{{ emailText }}"/>
+      </div>
+      <div>
+        <input type="password" placeholder="Password" required="" name="password" id="password"/>
+      </div>
+      <div>
+        <select name="typelist" form="add">
+          <option value="">Type</option>
+          <option value="Staff">Staff</option>
+          <option value="Administrator">Admin</option>
+        </select></div>
+      <div style="color: red">{{ status }}</div>
+
+      <div>
+        <input type="button" onclick="location.href='/list';" value="Back"/>
+        <input type="submit" value="Add"/>
+      </div>
+    </form>
+  </section>
+</div>
+</body>
+
+
+</html>
