@@ -26,9 +26,11 @@ class CheckInUpdateHandler(webapp2.RequestHandler):
 
         # This works for one user.
         # key_str = self.request.get("keys").split(',')[0]
+
         print 'howdy'
         key_list = self.request.get("keys").split(',')
         key_list = key_list[:len(key_list)-1:]
+        print key_list
         for key_str in key_list:
             print 'gohowdy'
             print key_str
