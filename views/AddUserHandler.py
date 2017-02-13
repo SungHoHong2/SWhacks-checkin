@@ -1,9 +1,6 @@
 from google.appengine.ext.webapp import template
-from google.appengine.ext import db
-from google.appengine.ext.db import Key
 
-import webapp2, os
-from google.appengine.api import users
+import os
 from modals.User import getHash, User
 from views.SessionHandler import SessionHandler
 

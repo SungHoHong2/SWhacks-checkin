@@ -1,4 +1,3 @@
-import webapp2
 from modals.Attendant import Attendant
 from modals.User import User
 from views.SessionHandler import SessionHandler

@@ -1,10 +1,9 @@
 from google.appengine.ext.webapp import template
-import webapp2, os
-from google.appengine.api import users
+import os
 from modals.Attendant import Attendant
 import json
 from views.SessionHandler import SessionHandler
-
+from modals.MyJsonEncoder import MyJsonEncoder
 
 col_names = {
     'firstName': 'firstName_lower',
@@ -39,7 +38,7 @@ class CheckinListHandler(SessionHandler):
         template_values = {
             'logout_url': '/logout',
             'changePass_url': '/chps',
-            'attendant_list': json.dumps(attendant_list['objects']),
+            'attendant_list': json.dumps(attendant_list['objects'],cls=MyJsonEncoder),
             'next_cursor': attendant_list['next_cursor'],
             'prev_cursor' : attendant_list['prev_cursor'],
             'prev': attendant_list['prev'],
@@ -63,7 +62,7 @@ class CheckinListHandler(SessionHandler):
         attendant_list = Attendant.cursor_pagination('', '', Attendant.query().count(),
                          {'col_name': col_name, 'text': text.lower()})
         json_return = {
-            'attendant_list': json.dumps(attendant_list['objects']),
+            'attendant_list': json.dumps(attendant_list['objects'],cls=MyJsonEncoder),
         }
 
         json_return = json.dumps(json_return)
