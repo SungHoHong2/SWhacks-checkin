@@ -18,7 +18,7 @@
 <script type="text/javascript">
 
     var checkin_grid;
-    $(document).ready(function () {
+    $(document).ready(function (){
         var attendant_list = {
             page: 1, total: 2, records: 10,
             rows: {{ attendant_list|safe }}
@@ -43,6 +43,7 @@
             rowNum: 10,
             rowList: [10, 20, 30],
             height: 'auto',
+
             width: 'auto',
             sortname: 'id',
             sortorder: "desc",
@@ -92,6 +93,9 @@
                             for (var i = 0; i < search_list.length; i++) {
                                 checkin_grid.jqGrid('addRowData', search_list[i].id, search_list[i]);
                             }
+
+                            console.log(checkin_grid.height());
+
 
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -145,6 +149,7 @@
         });
 
 
+
     });
 
 
@@ -163,10 +168,8 @@
         <option value="email">Email</option>
       </select>
 
-
       <a href="{{ logout_url }}" style="background-color: rgb(240, 128, 128);">Logout</a>
-
-      <a href="{{ changePass_url }}">Change Password</a>
+      <a href="{{ changePass_url }}" style="width: 131px;">Change Password</a>
       {% if type %}
         <a href="{{ addUser_url }}">Add User</a>
       {% endif %}
