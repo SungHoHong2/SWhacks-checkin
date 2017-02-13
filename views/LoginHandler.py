@@ -1,5 +1,5 @@
 from google.appengine.ext.webapp import template
-import webapp2, os
+import os
 from modals.User import getHash, User
 from views.SessionHandler import SessionHandler
 

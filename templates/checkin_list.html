@@ -27,7 +27,7 @@
         $("#checkin_list").jqGrid({
             datatype: 'jsonstring',
             datastr: attendant_list,
-            colNames: ['id', 'First Name', 'Last Name', 'Gender', 'T Shirt', 'Email', 'Dietary preferences', 'Special accommodations', 'present'],
+            colNames: ['id', 'First Name', 'Last Name', 'Gender', 'T Shirt', 'Email', 'Dietary preferences', 'Special accommodations', 'present', 'modified'],
             colModel: [
                 {name: 'id', hidden: true},
                 {name: 'first_name', index: 'first_name'},
@@ -37,7 +37,8 @@
                 {name: 'email', width: 200},
                 {name: 'dietary_preferences'},
                 {name: 'special_accomodations', width: 200},
-                {name: 'present', align: 'center'}
+                {name: 'present', align: 'center'},
+                {name: 'modified', hidden: true}
             ],
             rowNum: 10,
             rowList: [10, 20, 30],
@@ -104,33 +105,36 @@
 
         $('#present_submit').click(function () {
             var keys_array = checkin_grid.jqGrid('getGridParam', 'selarrrow');
+
             if (keys_array.length == 0) {
                 alert('Please select at least one row');
                 return;
             }
-            ;
 
             if (!confirm('Are you sure?')) {
                 return false;
             }
 
             var keys = '';
+            var mod = '';
+            var pres = '';
             // Take the key from row(s) and place into var keys.
             $(keys_array).each(function (index, item) {
-                keys += item + ',';
+                var modify = checkin_grid.jqGrid('getCell', item, 'modified');
+                var present = checkin_grid.jqGrid('getCell', item, 'present');
+                keys += item + ',';//IDs of each row
+                mod += modify + ',';
+                pres += present + ',';
             });
 
             $.ajax({
                 url: '../update',
                 type: "POST",
-                data: {keys: keys}, //Pass variables to the POST body request
+                data: {keys: keys, modified: mod, present: pres}, //Pass variables to the POST body request
                 success: function (data, textStatus, jqXHR) {
                     $(data.keys).each(function (index, item) {
-                        if (checkin_grid.getRowData(item)['present'] == 'false') {
-                            checkin_grid.jqGrid('setCell', item, 'present', true);
-                        } else {
-                            checkin_grid.jqGrid('setCell', item, 'present', false);
-                        }
+                            checkin_grid.jqGrid('setCell', item, 'present', data.present[index]);
+                            checkin_grid.jqGrid('setCell', item, 'modified', data.modified[index]);
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

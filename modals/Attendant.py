@@ -1,7 +1,6 @@
 from google.appengine.ext import ndb
 from google.appengine.datastore.datastore_query import Cursor
 
-
 class Attendant(ndb.Model):
     firstName = ndb.StringProperty('FirstName')
     lastName = ndb.StringProperty('LastName')
@@ -22,6 +21,7 @@ class Attendant(ndb.Model):
     specialAccomodations = ndb.StringProperty('SpecialAccomodations', default='None')
     present = ndb.BooleanProperty('Present', default=False)
     created = ndb.DateTimeProperty(auto_now_add=True)
+    modified = ndb.DateTimeProperty('modified',auto_now=True)
 
     def generateTestData(self):
         ndb.delete_multi(Attendant.query().fetch(999999, keys_only=True))  # Clear datastore entities
@@ -121,7 +121,8 @@ class Attendant(ndb.Model):
                        'tShirt': attendant.tShirtSize,
                        'dietary_preferences': attendant.dietaryPreferences,
                        'special_accomodations': attendant.specialAccomodations,
-                       'present': attendant.present
+                       'present': attendant.present,
+                       'modified': attendant.modified
                    } for attendant in objects]
 
         return {'objects': objects, 'next_cursor': next_cursor_str, 'prev_cursor': prev_cursor_str, 'prev': prev,
