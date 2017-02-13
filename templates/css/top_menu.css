@@ -44,6 +44,7 @@ ul.pagination li a.active {
     height: 36px;
     line-height: 36px;
     width: 900px;
+    min-width: 560px;
     /* CSS 3 */
     background-image: linear-gradient(bottom, rgb(170,170,170) 11%, rgb(238,238,238) 77%);
     background-image: -o-linear-gradient(bottom, rgb(170,170,170) 11%, rgb(238,238,238) 77%);
