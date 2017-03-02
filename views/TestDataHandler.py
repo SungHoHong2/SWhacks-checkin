@@ -4,10 +4,10 @@ from views.SessionHandler import SessionHandler
 
 class TestDataHandler(SessionHandler):
     def get(self):
-        a = Attendant(firstName='temp', lastName='', email='',
-                    dietaryPreferences='', specialAccomodations='')
-        a.generateTestData()
 
+        # a = Attendant(firstName='temp', lastName='', email='',
+        #             dietaryPreferences='', specialAccomodations='')
+        # a.generateTestData()
 
         u = User(email="t", password="d", type="Administrator")
         u.generateTestData()

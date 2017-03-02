@@ -14,6 +14,8 @@ from views.LoginHandler import LoginHandler
 from views.LogoutHandler import LogoutHandler
 from views.ChangePasswordHandler import ChangePasswordHandler
 from views.AddUserHandler import AddUserHandler
+from views.AddRegisterDataHandler import AddRegisterDataHandler
+
 config = {}
 config['webapp2_extras.sessions'] = {
     'session_max_age' : 43200, # 12 hours of session
@@ -27,4 +29,5 @@ app = webapp2.WSGIApplication([
     ('/list', CheckinListHandler),
     ('/update', CheckInUpdateHandler),
     ('/test', TestDataHandler),
+    ('/synchronize_data', AddRegisterDataHandler),
 ], debug=True, config=config)
