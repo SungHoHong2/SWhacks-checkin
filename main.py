@@ -28,6 +28,6 @@ app = webapp2.WSGIApplication([
     ('/adduser', AddUserHandler),
     ('/list', CheckinListHandler),
     ('/update', CheckInUpdateHandler),
-    ('/test', TestDataHandler),
+    ('/synchronize_user', TestDataHandler),
     ('/synchronize_data', AddRegisterDataHandler),
 ], debug=True, config=config)

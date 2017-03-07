@@ -20,11 +20,17 @@ class AddRegisterDataHandler(SessionHandler):
         raw_data = data.get('responses')
 
         for people in raw_data:
+
+            if people.get('answers').get('email_40994675') is None:
+                _email = '';
+            else:
+                _email = people.get('answers').get('email_40994675');
+
             a = Attendant(
-                firstName=people.get('answers')['textfield_40994669'],
-                lastName=people.get('answers')['textfield_40994670'],
+                firstName=people.get('answers').get('textfield_40994669'),
+                lastName=people.get('answers').get('textfield_40994670'),
                 gender=people.get('answers').get('list_40994679_choice'),
-                email=people.get('answers')['email_40994675'],
+                email=_email,
                 tShirtSize=people.get('answers').get('list_40994681_choice'),
                 dietaryPreferences=people.get('answers').get('list_40994680_choice'),
                 specialAccomodations=people.get('answers').get('textarea_40994692'),
