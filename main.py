@@ -15,6 +15,7 @@ from views.LogoutHandler import LogoutHandler
 from views.ChangePasswordHandler import ChangePasswordHandler
 from views.AddUserHandler import AddUserHandler
 from views.AddRegisterDataHandler import AddRegisterDataHandler
+from views.ExportCSVHandler import ExportCSVHandler
 
 config = {}
 config['webapp2_extras.sessions'] = {
@@ -30,4 +31,5 @@ app = webapp2.WSGIApplication([
     ('/update', CheckInUpdateHandler),
     ('/synchronize_user', TestDataHandler),
     ('/synchronize_data', AddRegisterDataHandler),
+    ('/export_csv', ExportCSVHandler),
 ], debug=True, config=config)
